@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/clerk-expo";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from "@/components/Button";
 import { router } from "expo-router";
@@ -76,39 +76,41 @@ export default function Home() {
                 </TouchableOpacity>
             </View>
 
-            <View style={styles.content}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 60 }} style={styles.content}>
                 <Input
                     placeholder="Nome do equipamento"
                     value={productName}
                     onChangeText={setProductName}
                 />
 
-                {components.map((component, index) => (
-                    <View key={index}>
-                        <Input
-                            placeholder="Nome do componente"
-                            value={component.name}
-                            onChangeText={(text) => handleComponentChange(index, text)}
-                        />
-
-                        <Button
-                            title="Tira foto"
-                            onPress={() => handleImagePick(index)}
-                        />
-
-                        {component.photo && (
-                            <Image
-                                source={{ uri: component.photo }}
-                                style={{ width: 100, height: 100 }}
+                <View style={{ gap: 8, marginBottom: 8 }}>
+                    {components.map((component, index) => (
+                        <View key={index}>
+                            <Input
+                                placeholder="Lado da foto"
+                                value={component.name}
+                                onChangeText={(text) => handleComponentChange(index, text)}
                             />
-                        )}
-                    </View>
-                ))}
+
+                            <Button
+                                title="Tira foto"
+                                onPress={() => handleImagePick(index)}
+                            />
+
+                            {component.photo && (
+                                <Image
+                                    source={{ uri: component.photo }}
+                                    style={{ width: 300, height: 300 }}
+                                />
+                            )}
+                        </View>
+                    ))}
+                </View>
 
                 <Button title="Add Componente" onPress={addComponent} />
                 <Button title="Criar Ferramenta" onPress={createProduct} />
 
-            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -137,6 +139,6 @@ const styles = StyleSheet.create({
         borderColor: "#000"
     },
     content: {
-
+        gap: 8
     }
 })

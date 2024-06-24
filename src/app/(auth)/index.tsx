@@ -1,6 +1,8 @@
-import { Button } from "@/components/Button";
 import { useAuth, useUser } from "@clerk/clerk-expo";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
+import { Button } from "@/components/Button";
+import { router } from "expo-router";
 
 export default function Home() {
     const { user } = useUser()
@@ -8,9 +10,19 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-            <Image source={{ uri: user?.imageUrl }} style={styles.image} />
-            <Text style={styles.title}>Ola {user?.fullName}!</Text>
-            <Button icon="exit" title="Sair" onPress={() => signOut()} />
+            <View style={styles.header}>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                    <Image source={{ uri: user?.imageUrl }} style={styles.image} />
+                    <Text style={styles.title}>Ola {"\n"} {user?.fullName}!</Text>
+                </View>
+                <TouchableOpacity onPress={() => signOut()}>
+                    <Ionicons name="exit" size={24} color="black" />
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.content}>
+                <Button title="Adicionar equipamento" onPress={() => router.navigate("/(auth)/add")} />
+            </View>
         </View>
     )
 }
@@ -18,10 +30,14 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 32,
-        justifyContent: "center",
-        alignItems: "center",
+        paddingTop: 42,
+        paddingHorizontal: 10,
         gap: 32,
+    },
+    header: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
     title: {
         fontSize: 18,
@@ -30,8 +46,11 @@ const styles = StyleSheet.create({
     image: {
         width: 92,
         height: 92,
-        borderRadius: 12,
+        borderRadius: 999,
         borderWidth: 1,
         borderColor: "#000"
+    },
+    content: {
+
     }
 })

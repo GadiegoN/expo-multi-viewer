@@ -1,9 +1,8 @@
 import { useEffect } from "react"
-import { ActivityIndicator } from "react-native"
+import { ActivityIndicator, StatusBar } from "react-native"
 import { Slot, router } from "expo-router"
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo"
 import { tokenCache } from "@/storage/token-cache"
-import { StatusBar } from "expo-status-bar"
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string
 
@@ -32,7 +31,7 @@ export default function Layout() {
             tokenCache={tokenCache}
         >
             <InitialLayout />
-            <StatusBar backgroundColor="white" translucent style="dark" />
+            <StatusBar translucent barStyle="dark-content" />
         </ClerkProvider>
     )
 }

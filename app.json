@@ -16,11 +16,12 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.gadiegon.expomultiviewer"
+      "package": "com.bolgames.multiviewer"
     },
     "web": {
       "bundler": "metro",
@@ -29,7 +30,14 @@
     },
     "plugins": [
       "expo-router",
-      "expo-secure-store"
+      "expo-secure-store",
+      "@react-native-firebase/app",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

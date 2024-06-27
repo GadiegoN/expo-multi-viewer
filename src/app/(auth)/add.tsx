@@ -1,13 +1,9 @@
 import { useUser } from "@clerk/clerk-expo";
-import { FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+import { Alert, Image, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { Button } from "@/components/Button";
-import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
-import { Input } from "@/components/Input";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StatusBar } from "expo-status-bar";
 
 interface Components {
     photo: string | undefined
@@ -77,6 +73,7 @@ export default function Home() {
             setProducts([...products, product]);
             setProductName('');
             setComponents([]);
+            Alert.alert("Parabéns", "Equipamento criado e adicionado na sua lista de equipamentos!")
         } catch (e) {
             console.error('Erro ao salvar o produto no localStorage', e);
         }
@@ -97,17 +94,6 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-            <StatusBar translucent style="dark" />
-            <View style={styles.header}>
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-                    <Image source={{ uri: user?.imageUrl }} style={styles.image} />
-                    <Text style={styles.title}>Ola {"\n"} {user?.fullName}!</Text>
-                </View>
-                <TouchableOpacity onPress={() => router.navigate("/(auth)")}>
-                    <Ionicons name="backspace" size={24} color="black" />
-                </TouchableOpacity>
-            </View>
-
             <ScrollView contentContainerStyle={{ paddingBottom: 60 }} style={styles.content}>
                 <View style={styles.containerInput}>
                     <TextInput

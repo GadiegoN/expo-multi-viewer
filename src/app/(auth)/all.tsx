@@ -1,7 +1,4 @@
-import { Button } from "@/components/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { View, FlatList, Text, Image, StyleSheet, ScrollView } from "react-native";
 
@@ -41,8 +38,6 @@ export default function All() {
 
     return (
         <View style={styles.container}>
-            <StatusBar translucent style="dark" />
-            <Button title="Voltar" onPress={() => router.navigate("/")} />
             <FlatList
                 data={products}
                 keyExtractor={(item) => item.id}

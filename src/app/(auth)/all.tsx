@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
-import { View, FlatList, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { View, FlatList, Text, Image, StyleSheet, ScrollView, RefreshControl } from "react-native";
 
 interface Components {
     photo: string | undefined
@@ -18,9 +18,18 @@ interface Product {
 
 export default function All() {
     const [products, setProducts] = useState<Product[]>([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         loadAllProducts();
+    }, []);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            loadAllProducts()
+            setRefreshing(false);
+        }, 2000);
     }, []);
 
     async function loadAllProducts() {
@@ -41,6 +50,7 @@ export default function All() {
             <FlatList
                 data={products}
                 keyExtractor={(item) => item.id}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 renderItem={({ item }) => (
                     <View style={styles.product}>
                         <Text style={styles.title}>{item.userName}</Text>

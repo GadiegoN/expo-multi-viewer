@@ -73,10 +73,10 @@ export default function Home() {
             setProducts([...products, product]);
             setProductName('');
             setComponents([]);
-            Alert.alert("Parabéns", "Equipamento criado e adicionado na sua lista de equipamentos!")
         } catch (e) {
             console.error('Erro ao salvar o produto no localStorage', e);
         }
+        Alert.alert("Parabéns", "Equipamento criado e adicionado na sua lista de equipamentos!")
     }
 
     async function loadProducts() {
@@ -94,7 +94,10 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={{ paddingBottom: 60 }} style={styles.content}>
+            <ScrollView
+                contentContainerStyle={{ paddingBottom: 60 }}
+                style={styles.content}
+            >
                 <View style={styles.containerInput}>
                     <TextInput
                         placeholder="Nome do equipamento"

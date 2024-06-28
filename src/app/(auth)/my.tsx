@@ -1,10 +1,10 @@
 import { useAuth, useUser } from "@clerk/clerk-expo";
-import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, FlatList, Image, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from "@/components/Button";
 import { router } from "expo-router";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 interface Components {
     photo: string | undefined;
     name: string;
@@ -22,6 +22,15 @@ export default function My() {
     const { user } = useUser()
     const { signOut } = useAuth()
     const [products, setProducts] = useState<Product[]>([]);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            loadMyProducts()
+            setRefreshing(false);
+        }, 2000);
+    }, []);
 
     async function loadMyProducts() {
         try {
@@ -86,6 +95,7 @@ export default function My() {
             <Text style={styles.subtitle}>Meus equipamentos cadastrados</Text>
             <FlatList
                 data={products}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View style={styles.product}>

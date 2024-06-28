@@ -18,7 +18,7 @@ export default function Layout() {
                     name="my"
                     options={{
                         drawerLabel: 'Ver meus equipamentos',
-                        title: 'Adcione um novo',
+                        title: 'Meus equipamentos',
                     }}
                 />
                 <Drawer.Screen
@@ -32,7 +32,7 @@ export default function Layout() {
                     name="add"
                     options={{
                         drawerLabel: '+ Novo equipamento',
-                        title: 'Adcione um novo',
+                        title: 'Adicione um novo',
                     }}
                 />
             </Drawer>
